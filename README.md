@@ -197,6 +197,6 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-**Created by:** Tanisha  
+**Created by:** Tanisha Kushwah
 **Tech Stack:** Python · FastAPI · React · Material-UI · scikit-learn  
 **Status:** ✅ Active
