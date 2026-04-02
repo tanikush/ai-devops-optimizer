@@ -1,0 +1,81 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+*.egg-info/
+dist/
+build/
+*.egg
+
+# ML Models
+*.pkl
+*.h5
+*.joblib
+ml-pipeline/models/*
+!ml-pipeline/models/.gitkeep
+
+# Data
+ml-pipeline/data/raw/*
+ml-pipeline/data/processed/*
+ml-pipeline/data/features/*
+!ml-pipeline/data/*/.gitkeep
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp/
+.pnp.js
+
+# React build
+frontend/build/
+frontend/dist/
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+coverage/
+
+# Logs
+*.log
+logs/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Docker
+.dockerignore
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/

@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: devops-optimizer-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: devops_optimizer
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - devops-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: devops-optimizer-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - devops-network
+
+  backend:
+    build:
+      context: ../../backend
+      dockerfile: Dockerfile
+    container_name: devops-optimizer-backend
+    environment:
+      DATABASE_URL: postgresql://postgres:password@postgres:5432/devops_optimizer
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ../../backend:/app
+    networks:
+      - devops-network
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  frontend:
+    build:
+      context: ../../frontend
+      dockerfile: Dockerfile
+    container_name: devops-optimizer-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - devops-network
+
+volumes:
+  postgres_data:
+
+networks:
+  devops-network:
+    driver: bridge
